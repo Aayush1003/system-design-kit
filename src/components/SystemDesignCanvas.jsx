@@ -15,7 +15,7 @@ const ComponentIcon = ({ type }) => {
   }
 };
 
-const SystemDesignCanvas = ({ architecture }) => {
+const SystemDesignCanvas = ({ architecture, onNodeClick }) => {
   if (!architecture) return null;
 
   return (
@@ -28,6 +28,7 @@ const SystemDesignCanvas = ({ architecture }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.1 }}
             className={`canvas-node ${node.type}`}
+            onClick={() => onNodeClick && onNodeClick(node)}
             style={{ 
               gridArea: node.position,
               borderColor: node.color || 'var(--accent-primary)'
@@ -73,11 +74,11 @@ const SystemDesignCanvas = ({ architecture }) => {
           z-index: 2;
           box-shadow: var(--shadow-lg);
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          cursor: crosshair;
+          cursor: pointer;
         }
         .canvas-node:hover {
           transform: translateY(-5px) scale(1.05);
-          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 15px var(--accent-primary);
           background: rgba(255, 255, 255, 0.05);
         }
         .node-header {
